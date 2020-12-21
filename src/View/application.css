@@ -1,0 +1,24 @@
+/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+.button:hover {
+	-fx-scale-x: 108.0%;
+	-fx-scale-y: 108.0%;
+	-fx-cursor: hand;
+}
+
+.button:active {
+  -fx-background-color: #58257b;
+  -fx-translate-y: 4.0px;
+}
+.table-view .column-header,
+.table-view .column-header .label{
+   -fx-font-weight: bold; 
+}
+.table-row-cell :odd{
+    -fx-background-color:white;
+}
+.table-row-cell :even{
+    -fx-background-color:#DDDDDD;
+}
+.table-row-cell:selected {
+	 	-fx-text-background-color:red;
+}

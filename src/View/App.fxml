@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import org.controlsfx.control.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.text.*?>
+<?import com.jfoenix.controls.*?>
+<?import de.jensd.fx.glyphs.fontawesome.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="1080.0" prefWidth="1920.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.MainController">
+   <children>
+      <AnchorPane layoutX="303.0" layoutY="1.0" prefHeight="1112.0" prefWidth="1616.0" style="-fx-background-color: #ffffff;">
+         <children>
+            <Pane fx:id="panehello" layoutX="-11.0" layoutY="-1.0" prefHeight="1113.0" prefWidth="1632.0" style="-fx-background-color: black;">
+               <children>
+                  <Label alignment="CENTER" layoutX="345.0" layoutY="-40.0" prefHeight="271.0" prefWidth="932.0" text="Welcome To My Application" textAlignment="CENTER" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold Italic" size="72.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="label1" alignment="CENTER" layoutX="421.0" layoutY="347.0" prefHeight="225.0" prefWidth="788.0" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="System Italic" size="48.0" />
+                     </font>
+                  </Label>
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" layoutX="22.0" layoutY="290.0" size="40" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" layoutX="22.0" layoutY="544.0" size="40" text="" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" layoutX="22.0" layoutY="420.0" size="40" />
+                  <FontAwesomeIconView fill="WHITE" glyphName="ARROW_LEFT" layoutX="22.0" layoutY="668.0" size="40" />
+                  <Label alignment="CENTER" layoutX="75.0" layoutY="235.0" prefHeight="80.0" prefWidth="223.0" text="Chọn Phát Thưởng để xem thông tin phát thưởng" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="75.0" layoutY="365.0" prefHeight="80.0" prefWidth="223.0" text="Chọn Thống Kê để xem biểu đồ tổng quan " textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="75.0" layoutY="489.0" prefHeight="80.0" prefWidth="223.0" text="Chọn Quản Lý để kiểm tra thông tin quản lý chung" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="CENTER" layoutX="75.0" layoutY="613.0" prefHeight="80.0" prefWidth="223.0" text="Chọn Cài Đặt để đăng xuất hoặc thiết lập tùy chọn" textAlignment="CENTER" textFill="WHITE" wrapText="true">
+                     <font>
+                        <Font name="Times New Roman" size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </Pane>
+            <Pane fx:id="panephatthuong" layoutX="-1.0" prefHeight="1112.0" prefWidth="1616.0" visible="false">
+               <children>
+                  <JFXTabPane layoutX="2.0" layoutY="-1.0" prefHeight="1112.0" prefWidth="1616.0">
+                     <tabs>
+                        <Tab text="Phát Thưởng ">
+                          <content>
+							<fx:include source="TableViewPhatThuong.fxml" />
+                          </content>
+                        </Tab>
+                        <Tab text="Phát Thưởng Chi Tiết">
+                          <content>
+                          	<fx:include source="TableViewChiTietPhatThuong.fxml" />
+                          </content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></Pane>
+            <Pane fx:id="panethongke" prefHeight="1112.0" prefWidth="1616.0" visible="false">
+               <children>
+                         <fx:include source="Thongke.fxml" />
+               </children>
+              </Pane>
+            <Pane fx:id="panequanly" prefHeight="1112.0" prefWidth="1616.0" visible="false">
+               <children>
+                  <JFXTabPane prefHeight="1112.0" prefWidth="1616.0">
+                     <tabs>
+                        <Tab text="Quản Lý Quỹ">
+               				<content>
+                  				<fx:include fx:id="tableviewquy" source="TableViewQuy.fxml" />
+              				</content>
+              			</Tab>	
+                        <Tab text="Quản Lý Các Cháu">
+               				<content>
+                  				<fx:include fx:id="tableviewcacchau" source="TableViewCacChau.fxml" />
+              				</content>
+              			</Tab>	
+                        <Tab text="Quản Lý Hộ Gia Đình">
+                				<content>
+                  				<fx:include fx:id="tableviewhogiadinh" source="TableViewHoGiaDinh.fxml" />
+              				</content>
+                        </Tab>
+                     </tabs>
+                  </JFXTabPane>
+               </children></Pane>
+            <Pane fx:id="panecaidat" layoutX="-3.0" layoutY="-1.0" prefHeight="1113.0" prefWidth="1624.0" style="-fx-background-color: white;" visible="false">
+               <children>
+                  <AnchorPane prefHeight="122.0" prefWidth="1624.0" style="-fx-background-color: Blue;">
+                     <children>
+                        <Label layoutX="601.0" layoutY="34.0" text="SYSTEM SETTING" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="Times New Roman Bold" size="48.0" />
+                           </font>
+                           <effect>
+                              <DropShadow />
+                           </effect>
+                        </Label>
+                     </children>
+                  </AnchorPane>
+                  <JFXComboBox layoutX="122.0" layoutY="257.0" prefHeight="31.0" prefWidth="399.0" />
+                  <JFXComboBox layoutX="122.0" layoutY="394.0" prefHeight="31.0" prefWidth="399.0" />
+                  <JFXButton layoutX="1381.0" layoutY="909.0" onAction="#Logout" style="-fx-background-color: Red;" text="LOG OUT" textFill="WHITE">
+                     <font>
+                        <Font name="Times New Roman Bold Italic" size="36.0" />
+                     </font>
+                     <effect>
+                        <DropShadow />
+                     </effect>
+                  </JFXButton>
+               </children></Pane>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutY="-2.0" prefHeight="1113.0" prefWidth="302.0" style="-fx-background-color: black;">
+         <children>
+            <JFXButton fx:id="btnquanly" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="496.0" onAction="#QuanLy" prefHeight="68.0" prefWidth="302.0" style="-fx-background-color: black; -fx-border-color: white;" text="Quản Lý" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="btnthongke" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="377.0" onAction="#ThongKe" prefHeight="68.0" prefWidth="302.0" style="-fx-background-color: black; -fx-border-color: white;" text="Thống Kê" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="btnphatthuong" alignment="CENTER" contentDisplay="CENTER" layoutY="247.0" onAction="#PhatThuong" prefHeight="68.0" prefWidth="302.0" style="-fx-background-color: black; -fx-border-color: white;" text="Phát Thưởng" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </JFXButton>
+            <JFXButton fx:id="btncaidat" alignment="CENTER" contentDisplay="CENTER" layoutX="-1.0" layoutY="623.0" onAction="#CaiDat" prefHeight="68.0" prefWidth="302.0" style="-fx-background-color: black; -fx-border-color: white;" text="Cài Đặt" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font name="Times New Roman Bold" size="20.0" />
+               </font>
+               <effect>
+                  <DropShadow />
+               </effect>
+            </JFXButton>
+            <FontAwesomeIconView fill="WHITE" glyphName="USER" layoutX="120.0" layoutY="131.0" size="80" />
+            <FontAwesomeIconView fill="WHITE" glyphName="GIFT" layoutX="46.0" layoutY="291.0" size="30" />
+            <FontAwesomeIconView fill="WHITE" glyphName="BAR_CHART" layoutX="42.0" layoutY="421.0" size="30" />
+            <FontAwesomeIconView fill="WHITE" glyphName="COG" layoutX="44.0" layoutY="667.0" size="30" />
+            <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="50.0" layoutY="540.0" size="30" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
