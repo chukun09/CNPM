@@ -4,7 +4,7 @@ public class KiemKe {
 	private int IDKiemKe;
 	private int QuyTruoc;
 	private int SoTienChiTieu;
-	private int QuySau = QuyTruoc - SoTienChiTieu;
+	private int QuySau;
 	private String NgayThayDoi;
 	private String NoiDung;
 

@@ -16,7 +16,7 @@
                                  <children>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1077.0" prefWidth="1616.0" style="-fx-fill: white;">
                                        <children>
-                                          <TableView fx:id="tablecacchau" onMouseClicked="#getSelected" layoutX="-2.0" layoutY="273.0" prefHeight="812.0" prefWidth="1616.0">
+                                          <TableView fx:id="tablecacchau" layoutX="-2.0" layoutY="273.0" onMouseClicked="#getSelected" prefHeight="812.0" prefWidth="1616.0">
                                              <columns>
                                                 <TableColumn fx:id="IDChau" prefWidth="148.0" text="ID Cháu" />
                                                 <TableColumn fx:id="IDHoGiaDinh" minWidth="0.0" prefWidth="212.0" text="ID Hộ Gia Đình" />
@@ -32,7 +32,6 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="txt_find" layoutX="101.0" layoutY="237.0" prefHeight="31.0" prefWidth="344.0" promptText="Nhập từ khóa tìm kiếm " />
-                                          <TextField fx:id="txtngaysinh" layoutX="1257.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <TextField fx:id="txthoten" layoutX="719.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <TextField fx:id="txtidchau" layoutX="163.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <Label layoutX="87.0" layoutY="34.0" text="ID Cháu :">
@@ -50,10 +49,10 @@
                                                 <Font name="Times New Roman" size="16.0" />
                                              </font>
                                           </Label>
-                                          <JFXButton onAction="#Delete" buttonType="RAISED" layoutX="1323.0" layoutY="165.0" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" />
+                                          <JFXButton buttonType="RAISED" layoutX="1323.0" layoutY="165.0" onAction="#Delete" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" />
                                           <JFXButton buttonType="RAISED" layoutX="107.0" layoutY="165.0" onAction="#Add" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" />
-                                          <JFXButton onAction="#Edit" buttonType="RAISED" layoutX="528.0" layoutY="165.0" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" />
-                                          <JFXButton onAction="#Reset" buttonType="RAISED" layoutX="950.0" layoutY="165.0" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" text="Button" />
+                                          <JFXButton buttonType="RAISED" layoutX="528.0" layoutY="165.0" onAction="#Edit" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" />
+                                          <JFXButton buttonType="RAISED" layoutX="950.0" layoutY="165.0" onAction="#Reset" prefHeight="62.0" prefWidth="204.0" ripplerFill="WHITE" style="-fx-background-color: Black;" text="Button" />
                                           <FontAwesomeIconView fill="#837373" glyphName="SEARCH" layoutX="425.0" layoutY="250.0" size="20" />
                                           <FontAwesomeIconView glyphName="PLUS" layoutX="193.0" layoutY="210.0" size="40" style="-fx-fill: white;" />
                                           <FontAwesomeIconView glyphName="EDIT" layoutX="610.0" layoutY="210.0" size="40" style="-fx-fill: white;" />
@@ -77,6 +76,7 @@
                                                 <Font name="Times New Roman" size="16.0" />
                                              </font>
                                           </Label>
+            <DatePicker fx:id="txtngaysinh" layoutX="1257.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>

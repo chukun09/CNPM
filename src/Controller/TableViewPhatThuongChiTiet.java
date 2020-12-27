@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXTextField;
@@ -22,7 +23,9 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 	@FXML
 	JFXTextField txt_find;
 	@FXML
-	TextField txtidphatthuong, txtidchau, txthoten, txtthongtinphatthuong, txtphanthuong, txtngayphatthuong;
+	DatePicker txtngayphatthuong;
+	@FXML
+	TextField txtidphatthuong, txtidchau, txthoten, txtthongtinphatthuong, txtphanthuong;
 	@FXML
 	private TableView<PhatThuongChiTiet> tablechitietphatthuong;
 	@FXML
@@ -34,7 +37,7 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 	@FXML
 	private TableColumn<PhatThuongChiTiet, String> ThongTinPhatThuong;
 	@FXML
-	private TableColumn<PhatThuongChiTiet, String> PhanThuong;
+	private TableColumn<PhatThuongChiTiet, Integer> PhanThuong;
 	@FXML
 	private TableColumn<PhatThuongChiTiet, String> NgayPhatThuong;
 	Connection connection = null;
@@ -45,8 +48,9 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		IDPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("IDPhatThuong"));
 		IDChau.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, Integer>("IDChau"));
 		HoTen.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("HoTen"));
-		ThongTinPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("ThongTinPhatThuong"));
-		PhanThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("PhanThuong"));
+		ThongTinPhatThuong
+				.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("ThongTinPhatThuong"));
+		PhanThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, Integer>("PhanThuong"));
 		NgayPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("NgayPhatThuong"));
 		ObservableList<PhatThuongChiTiet> list = Update();
 		tablechitietphatthuong.setItems(list);
@@ -57,7 +61,8 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		Statement stat = connection.createStatement();
 		if (txtidphatthuong.getText().trim().equals("") || txtidchau.getText().trim().equals("")
 				|| txthoten.getText().trim().equals("") || txtthongtinphatthuong.getText().trim().equals("")
-				|| txtphanthuong.getText().trim().equals("") || txtngayphatthuong.getText().trim().equals("")) {
+				|| txtphanthuong.getText().trim().equals("")
+				|| txtngayphatthuong.getValue().toString().trim().equals("")) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thông Báo");
 			alert.setHeaderText(null);
@@ -65,10 +70,11 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 			alert.showAndWait();
 		} else {
 			try {
-				String sql = "Insert into PhatThuong_Dip (IDPhatThuong, IDChau, HoTen, ThongTinPhatThuong, PhanThuong, NgayPhatThuong) values (N'"
-						+ txtidphatthuong.getText() + ", " + Integer.parseInt(txtidchau.getText()) + ", N'"
-						+ txthoten.getText() + "', N'" + txtthongtinphatthuong.getText() + "', N'"
-						+ txtphanthuong.getText() + "', N'" + txtngayphatthuong.getText() + "'";
+				String sql = "Insert into PhatThuong_Dip (IDPhatThuong, IDChau, HoTen, ThongTinPT, PhanThuong, NgayPhatThuong) values (N'"
+						+ txtidphatthuong.getText() + "', " + Integer.parseInt(txtidchau.getText()) + ", N'"
+						+ txthoten.getText() + "', N'" + txtthongtinphatthuong.getText() + "', "
+						+ Integer.parseInt(txtphanthuong.getText()) + ", '" + txtngayphatthuong.getValue().toString()
+						+ "')";
 				stat.executeUpdate(sql);
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -95,7 +101,8 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 			PreparedStatement ps1 = connection.prepareStatement("Select * from PhatThuong_Dip");
 			rs = ps1.executeQuery();
 			while (rs.next()) {
-				list.add(new PhatThuongChiTiet(rs.getString(1), rs.getString(5), rs.getString(7), rs.getInt(2),rs.getString(4),rs.getString(6)));
+				list.add(new PhatThuongChiTiet(rs.getString(1), rs.getString(5), rs.getString(7), rs.getInt(2),
+						rs.getString(4), rs.getInt(6)));
 			}
 		} catch (Exception e) {
 		}
@@ -115,7 +122,7 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		txthoten.setText(HoTen.getCellData(index).toString());
 		txtthongtinphatthuong.setText(ThongTinPhatThuong.getCellData(index).toString());
 		txtphanthuong.setText(PhanThuong.getCellData(index).toString());
-		txtngayphatthuong.setText(NgayPhatThuong.getCellData(index).toString());
+		txtngayphatthuong.setValue(LocalDate.parse(NgayPhatThuong.getCellData(index)));
 	}
 
 	public void Edit() throws SQLException {
@@ -125,11 +132,11 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		String value3 = txthoten.getText();
 		String value4 = txtthongtinphatthuong.getText();
 		String value5 = txtphanthuong.getText();
-		String value6 = txtngayphatthuong.getText();
-		String sql = "update PhatThuong_Dip set IDPhatThuong= N'" + value1 + "', IDChau= " +Integer.parseInt(value2) 
-				+ ", HoTen= N'" + value3 + "', ThongTinPhatThuong= N'" + value4 + "', PhanThuong = N'"
-				+ value5 + "', NgayPhatThuong =N'" + value6 + "'" + "' where IDPhatThuong = "
-				+ Integer.parseInt(value1) + ";";
+		String value6 = txtngayphatthuong.getValue().toString();
+		String sql = "update PhatThuong_Dip set IDPhatThuong= N'" + value1 + "', IDChau= " + Integer.parseInt(value2)
+				+ ", HoTen= N'" + value3 + "', ThongTinPT= N'" + value4 + "', PhanThuong = N'" + value5
+				+ "', NgayPhatThuong ='" + value6 + "' " + " where IDPhatThuong = '" + value1 + "' AND IDChau = "
+				+ Integer.parseInt(value2);
 		pst = connection.prepareStatement(sql);
 		pst.execute();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -143,10 +150,11 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 
 	public void Delete() throws SQLException {
 		connection = ConnectionDatabase.ConnectionData("cnpm1");
-		String sql = "delete from PhatThuong_Dip where IDPhatThuong = ?";
+		String sql = "delete from PhatThuong_Dip where IDPhatThuong = ? and IDChau = ? ";
 		try {
 			pst = connection.prepareStatement(sql);
 			pst.setString(1, txtidphatthuong.getText());
+			pst.setInt(2, Integer.parseInt(txtidchau.getText()));
 			pst.execute();
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thông Báo");
@@ -165,8 +173,9 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		IDPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("IDPhatThuong"));
 		IDChau.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, Integer>("IDChau"));
 		HoTen.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("HoTen"));
-		ThongTinPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("ThongTinPhatThuong"));
-		PhanThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("PhanThuong"));
+		ThongTinPhatThuong
+				.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("ThongTinPhatThuong"));
+		PhanThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, Integer>("PhanThuong"));
 		NgayPhatThuong.setCellValueFactory(new PropertyValueFactory<PhatThuongChiTiet, String>("NgayPhatThuong"));
 		ObservableList<PhatThuongChiTiet> list = Update();
 		tablechitietphatthuong.setItems(list);
@@ -186,7 +195,7 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 					return true;
 				} else if (PhatThuongChiTiet.getThongTinPhatThuong().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
-				} else if (PhatThuongChiTiet.getPhanThuong().toLowerCase().indexOf(lowerCaseFilter) != -1) {
+				} else if (String.valueOf(PhatThuongChiTiet.getPhanThuong()).indexOf(lowerCaseFilter) != -1) {
 					return true;
 				} else if (PhatThuongChiTiet.getNgayPhatThuong().toLowerCase().indexOf(lowerCaseFilter) != -1) {
 					return true;
@@ -205,7 +214,7 @@ public class TableViewPhatThuongChiTiet implements Initializable {
 		txthoten.setText("");
 		txtthongtinphatthuong.setText("");
 		txtphanthuong.setText("");
-		txtngayphatthuong.setText("");
+		txtngayphatthuong.setValue(null);
 		UpdateTable();
 	}
 

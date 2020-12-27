@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="1080" prefWidth="1920" stylesheets="@application.css" style="-fx-background-image: url(&quot;file:///C:/Users/DELL/eclipse-workspace/CNPM/lib/hinhnen.png&quot;);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Main">
+<AnchorPane prefHeight="1080" prefWidth="1920" style="-fx-background-image: url(&quot;file:///C:/Users/DELL/eclipse-workspace/CNPM/lib/hinhnen.png&quot;);" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="View.Main">
    <children>
       <TextField fx:id="txttdn" layoutX="778.0" layoutY="411.0" prefHeight="49.0" prefWidth="391.0" promptText="Tên Đăng Nhập" style="-fx-border-color: white;" />
       <Label alignment="CENTER" layoutX="836.0" layoutY="291.0" prefHeight="64.0" prefWidth="298.0" text="LOGIN HERE" textAlignment="CENTER" textFill="WHITE">
@@ -26,13 +26,11 @@
             <Font name="Times New Roman Italic" size="18.0" />
          </font>
       </Label>
-      <Label text="Label" />
       <Label layoutX="683.0" layoutY="928.0" prefHeight="30.0" prefWidth="558.0" text="\@ 2020 Login Form. From Bách Khoa With Love | Design by F5.Ngáo" textFill="WHITE">
          <font>
             <Font name="Times New Roman" size="18.0" />
          </font>
       </Label>
-      <Label text="Label" />
       <Label alignment="CENTER" layoutX="628.0" layoutY="109.0" prefHeight="91.0" prefWidth="669.0" text="Welcome to My App" textAlignment="CENTER" textFill="#ff8a00">
          <font>
             <Font name="Times New Roman Bold" size="60.0" />

@@ -3,10 +3,10 @@ package Model;
 public class PhatThuongChiTiet extends PhatThuong {
 	private int IDChau;
 	private String HoTen;
-	private String PhanThuong;
+	private Integer PhanThuong;
 
 	public PhatThuongChiTiet(String iDPhatThuong, String thongTinPhatThuong, String ngayPhatThuong, int iDChau,
-			String hoTen, String phanThuong) {
+			String hoTen, Integer phanThuong) {
 		super(iDPhatThuong, thongTinPhatThuong, ngayPhatThuong);
 		IDChau = iDChau;
 		HoTen = hoTen;
@@ -29,11 +29,11 @@ public class PhatThuongChiTiet extends PhatThuong {
 		HoTen = hoTen;
 	}
 
-	public String getPhanThuong() {
+	public Integer getPhanThuong() {
 		return PhanThuong;
 	}
 
-	public void setPhanThuong(String phanThuong) {
+	public void setPhanThuong(int phanThuong) {
 		PhanThuong = phanThuong;
 	}
 

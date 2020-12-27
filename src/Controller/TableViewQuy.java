@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXTextField;
@@ -21,7 +22,9 @@ public class TableViewQuy implements Initializable {
 	@FXML
 	JFXTextField txt_find;
 	@FXML
-	TextField txtidkiemke, txtquytruoc, txtsotienchitieu, txtquysau, txtngaythaydoi, txtnoidung;
+	TextField txtidkiemke, txtquytruoc, txtsotienchitieu, txtquysau, txtnoidung;
+	@FXML
+	DatePicker txtngaythaydoi;
 	@FXML
 	private TableView<KiemKe> tablequy;
 	@FXML
@@ -55,8 +58,7 @@ public class TableViewQuy implements Initializable {
 		connection = ConnectionDatabase.ConnectionData("cnpm1");
 		Statement stat = connection.createStatement();
 		if (txtidkiemke.getText().trim().equals("") || txtquytruoc.getText().trim().equals("")
-				|| txtsotienchitieu.getText().trim().equals("") || txtquysau.getText().trim().equals("")
-				|| txtngaythaydoi.getText().trim().equals("") || txtnoidung.getText().trim().equals("")) {
+				|| txtngaythaydoi.getValue().toString().trim().equals("") || txtnoidung.getText().trim().equals("")) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thông Báo");
 			alert.setHeaderText(null);
@@ -64,10 +66,11 @@ public class TableViewQuy implements Initializable {
 			alert.showAndWait();
 		} else {
 			try {
-				String sql = "Insert into KiemKe (IDKiemKe, QuyTruoc, SoTienChiTieu, QuySau, NgayThayDoi) values ("
+				String sql = "Insert into KiemKe (IDKiemKe, QuyTruoc, SoTienChiTieu, QuySau, NgayThayDoi, IDPhatThuong) values ("
 						+ Integer.parseInt(txtidkiemke.getText()) + ", " + Integer.parseInt(txtquytruoc.getText())
-						+ ", " + Integer.parseInt(txtsotienchitieu.getText()) + ", "
-						+ Integer.parseInt(txtquysau.getText()) + ", N'" + txtngaythaydoi.getText() + "')";
+						+ ", " + Counttien(txtnoidung.getText()) + ", "
+						+ (Integer.parseInt(txtquytruoc.getText()) - Counttien(txtnoidung.getText())) + ", '"
+						+ txtngaythaydoi.getValue().toString() + "', '" + txtnoidung.getText() + "')";
 				stat.executeUpdate(sql);
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -95,7 +98,7 @@ public class TableViewQuy implements Initializable {
 			rs = ps1.executeQuery();
 			while (rs.next()) {
 				list.add(new KiemKe(rs.getInt(1), rs.getInt(2), Counttien(rs.getString(7)), rs.getInt(4),
-						rs.getString(5), rs.getString(6)));
+						rs.getString(5), rs.getString(7)));
 			}
 		} catch (Exception e) {
 		}
@@ -106,7 +109,7 @@ public class TableViewQuy implements Initializable {
 		Connection connection = ConnectionDatabase.ConnectionData("cnpm1");
 		Statement stat = connection.createStatement();
 		ResultSet rs = stat
-				.executeQuery("Select SUM(GiaTri) AS total from PhatThuong_Dip where IDPhatThuong = N'" + s + "'");
+				.executeQuery("Select SUM(PhanThuong) AS total from PhatThuong_Dip where IDPhatThuong = N'" + s + "'");
 		rs.next();
 		return rs.getInt("total");
 	}
@@ -123,7 +126,7 @@ public class TableViewQuy implements Initializable {
 		txtquytruoc.setText(QuyTruoc.getCellData(index).toString());
 		txtsotienchitieu.setText(SoTienChiTieu.getCellData(index).toString());
 		txtquysau.setText(QuySau.getCellData(index).toString());
-		txtngaythaydoi.setText(NgayThayDoi.getCellData(index).toString());
+		txtngaythaydoi.setValue(LocalDate.parse(NgayThayDoi.getCellData(index).toString()));
 		txtnoidung.setText(NoiDung.getCellData(index).toString());
 	}
 
@@ -133,12 +136,12 @@ public class TableViewQuy implements Initializable {
 		String value2 = txtquytruoc.getText();
 		String value3 = txtsotienchitieu.getText();
 		String value4 = txtquysau.getText();
-		String value5 = txtngaythaydoi.getText();
+		String value5 = txtngaythaydoi.getValue().toString();
 		String value6 = txtnoidung.getText();
 		String sql = "update KiemKe set IDKiemKe= " + Integer.parseInt(value1) + ", QuyTruoc= "
 				+ Integer.parseInt(value2) + ", SoTienChiTieu= " + Integer.parseInt(value3) + ", QuySau= "
-				+ Integer.parseInt(value4) + ", NgayThayDoi = '" + Date.valueOf(value5) + "', NoiDung =N'" + value6
-				+ "' " + " where IDKiemKe = " + Integer.parseInt(value1) + ";";
+				+ (Integer.parseInt(value2) - Integer.parseInt(value3)) + ", NgayThayDoi = '" + Date.valueOf(value5)
+				+ "', IDPhatThuong =N'" + value6 + "' " + " where IDKiemKe = " + Integer.parseInt(value1) + ";";
 		pst = connection.prepareStatement(sql);
 		pst.execute();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -213,7 +216,7 @@ public class TableViewQuy implements Initializable {
 		txtquytruoc.setText("");
 		txtsotienchitieu.setText("");
 		txtquysau.setText("");
-		txtngaythaydoi.setText("");
+		txtngaythaydoi.setValue(null);
 		txtnoidung.setText("");
 		UpdateTable();
 	}

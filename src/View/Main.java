@@ -21,8 +21,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-public class Main extends Application {
+public class Main extends Application{
 	@FXML
 	private JFXPasswordField txtpass, txtconfirm;
 	@FXML
@@ -60,6 +59,7 @@ public class Main extends Application {
 			root3 = loader.load();
 			MainController controllerLabel = loader.getController();
 			controllerLabel.setname("Hello " + txttdn.getText() + ", Thanks for using this app!");
+			controllerLabel.settext(txttdn.getText());
 			window.close();
 			window.setScene(new Scene(root3));
 			window.show();
@@ -104,6 +104,7 @@ public class Main extends Application {
 			txtacc.clear();
 			txtconfirm.clear();
 			txtpass.clear();
+			checkbox.setSelected(false);
 			window2.close();
 		}
 	}
@@ -119,5 +120,6 @@ public class Main extends Application {
 	public static void main(String[] args) throws SQLException {
 		launch(args);
 	}
+
 
 }

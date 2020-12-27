@@ -16,14 +16,14 @@
                                  <children>
                                     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1077.0" prefWidth="1616.0" style="-fx-fill: white;">
                                        <children>
-                                          <TableView fx:id="tablequy" layoutX="-2.0" layoutY="273.0" onMouseClicked="#getSelected" prefHeight="812.0" prefWidth="1616.0">
+                                          <TableView fx:id="tablequy" layoutY="276.0" onMouseClicked="#getSelected" prefHeight="812.0" prefWidth="1616.0">
                                              <columns>
                                                 <TableColumn fx:id="IDKiemKe" prefWidth="148.0" text="ID Kiểm Kê" />
                                                 <TableColumn fx:id="QuyTruoc" minWidth="0.0" prefWidth="275.0" text="Quỹ Trước" />
                                                 <TableColumn fx:id="SoTienChiTieu" prefWidth="302.0" text="Số Tiền Chi Tiêu" />
                                                 <TableColumn fx:id="QuySau" prefWidth="285.0" text="Quỹ Sau" />
-                                                <TableColumn fx:id="NgayThayDoi" minWidth="0.0" prefWidth="271.0" text="Ngày Thay Đổi" />
-                                                <TableColumn fx:id="NoiDung" prefWidth="334.0" text="Nội Dung" />
+                                                <TableColumn fx:id="NgayThayDoi" minWidth="0.0" prefWidth="372.0" text="Ngày Thay Đổi" />
+                                                <TableColumn fx:id="NoiDung" prefWidth="233.0" text="Mã Phát Thưởng" />
                                              </columns>
                                           </TableView>
                                           <Label layoutX="2.0" layoutY="243.0" text="Tìm Kiếm:">
@@ -32,7 +32,6 @@
                                              </font>
                                           </Label>
                                           <JFXTextField fx:id="txt_find" layoutX="101.0" layoutY="237.0" prefHeight="31.0" prefWidth="344.0" promptText="Nhập từ khóa tìm kiếm " />
-                                          <TextField fx:id="txtngaythaydoi" layoutX="1257.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <TextField fx:id="txtsotienchitieu" layoutX="719.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <TextField fx:id="txtidkiemke" layoutX="163.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                           <Label layoutX="63.0" layoutY="34.0" text="ID Kiểm Kê :">
@@ -77,6 +76,7 @@
                                                 <Font name="Times New Roman" size="16.0" />
                                              </font>
                                           </Label>
+            <DatePicker fx:id="txtngaythaydoi" layoutX="1257.0" layoutY="28.0" prefHeight="31.0" prefWidth="271.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>

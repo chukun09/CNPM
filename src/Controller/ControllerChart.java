@@ -70,13 +70,25 @@ public class ControllerChart extends Application implements Initializable {
 		if (combobox2.getValue().equals("Dịp Phát Thưởng")) {
 			PhatThuong();
 		}
-		if(combobox2.getValue().equals("Số tiền ban đầu") && combobox3.getValue().equals("Số tiền hiện còn")) {
+		if (combobox2.getValue().equals("Số tiền ban đầu") && combobox3.getValue().equals("Số tiền hiện còn")) {
 			Quy1();
+		}
+		if (combobox2.getValue().equals("Số tiền phát thưởng")) {
+			combobox3.getItems().clear();
+			combobox3.getItems().add("Số Lượng");
+			combobox3.setValue("Số Lượng");
+			TienChi();
+		}
+		if (combobox2.getValue().equals("Tên")) {
+			combobox3.getItems().clear();
+			combobox3.getItems().add("Tổng Giá Trị Phần Thưởng");
+			combobox3.setValue("Tổng Giá Trị Phần Thưởng");
+			MoiChau();
 		}
 	}
 
 	private void check() {
-		String s1[] = { "Thành Tích", "Giới Tính" };
+		String s1[] = { "Thành Tích", "Giới Tính", "Tên" };
 		String s2[] = { "Số tiền phát thưởng", "Số tiền hiện còn", "Số tiền ban đầu" };
 		if (combobox1.getValue().equals("Bảng Các Cháu")) {
 			combobox2.getItems().clear();
@@ -138,16 +150,44 @@ public class ControllerChart extends Application implements Initializable {
 		ObservableList<Model.PhatThuong> list1 = a.Update();
 		XYChart.Series set1 = new XYChart.Series<>();
 		for (Model.PhatThuong i : list1) {
-			set1.getData().add(new XYChart.Data(i.getThongTinPhatThuong(), Countphatthuong(i.getThongTinPhatThuong())));
+			set1.getData().add(new XYChart.Data(i.getThongTinPhatThuong(), Countphatthuong(i.getIDPhatThuong())));
 		}
 		barchart.getData().addAll(set1);
+	}
+
+	public void TienChi() throws SQLException {
+		TableViewPhatThuong a = new TableViewPhatThuong();
+		ObservableList<Model.PhatThuong> list1 = a.Update();
+		XYChart.Series set1 = new XYChart.Series<>();
+		for (Model.PhatThuong i : list1) {
+			set1.getData().add(new XYChart.Data(i.getThongTinPhatThuong(), Counttien(i.getIDPhatThuong())));
+		}
+		barchart.getData().addAll(set1);
+	}
+
+	public void MoiChau() throws SQLException {
+		TableViewPhatThuongChiTiet a = new TableViewPhatThuongChiTiet();
+		ObservableList<Model.PhatThuongChiTiet> list1 = a.Update();
+		XYChart.Series set1 = new XYChart.Series<>();
+		for (Model.PhatThuongChiTiet i : list1) {
+			set1.getData().add(new XYChart.Data(i.getHoTen(), Countgiatri(i.getHoTen())));
+		}
+		barchart.getData().addAll(set1);
+	}
+
+	public int Countgiatri(String s) throws SQLException {
+		Connection connection = ConnectionDatabase.ConnectionData("cnpm1");
+		Statement stat = connection.createStatement();
+		ResultSet rs = stat.executeQuery("Select SUM(PhanThuong) from PhatThuong_Dip where HoTen = N'" + s + "'");
+		rs.next();
+		return rs.getInt(1);
 	}
 
 	public int Countphatthuong(String s) throws SQLException {
 		Connection connection = ConnectionDatabase.ConnectionData("cnpm1");
 		Statement stat = connection.createStatement();
 		ResultSet rs = stat
-				.executeQuery("Select count(*) AS total from PhatThuong where ThongTinPhatThuong = N'" + s + "'");
+				.executeQuery("Select count(IDPhatThuong) AS total from PhatThuong_Dip where IDPhatThuong = N'" + s + "'");
 		rs.next();
 		return rs.getInt("total");
 	}
@@ -167,6 +207,16 @@ public class ControllerChart extends Application implements Initializable {
 		rs.next();
 		return rs.getInt("total");
 	}
+
+	public int Counttien(String s) throws SQLException {
+		Connection connection = ConnectionDatabase.ConnectionData("cnpm1");
+		Statement stat = connection.createStatement();
+		ResultSet rs = stat
+				.executeQuery("Select SUM(PhanThuong) AS total from PhatThuong_Dip where IDPhatThuong = N'" + s + "'");
+		rs.next();
+		return rs.getInt("total");
+	}
+
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("/View/Thongke.fxml"));

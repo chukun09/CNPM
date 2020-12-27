@@ -128,7 +128,7 @@ public class TableViewHoGiaDinh implements Initializable {
 		String value6 = txtdiachi.getText();
 		String sql = "update HoKhau set IDHoGiaDinh= " + Integer.parseInt(value1) + ", MaHoKhau= '" + value2
 				+ "', TenChuHo= N'" + value3 + "', CMNDChuHo= " + Integer.parseInt(value4) + ", SoThanhVien = "
-				+ Integer.parseInt(value5) + ", DiaChi =N'" + value6 + "'" + "' where IDHoGiaDinh = "
+				+ Integer.parseInt(value5) + ", DiaChi =N'" + value6 + "'" + " where IDHoGiaDinh = "
 				+ Integer.parseInt(value1) + ";";
 		pst = connection.prepareStatement(sql);
 		pst.execute();

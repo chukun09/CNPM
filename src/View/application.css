@@ -21,4 +21,5 @@
 }
 .table-row-cell:selected {
 	 	-fx-text-background-color:red;
+	 	-fx-background-color: blue;
 }

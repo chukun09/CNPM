@@ -2,8 +2,10 @@ package Controller;
 
 import java.net.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
+import javax.xml.bind.NotIdentifiableEvent;
 
 import com.jfoenix.controls.JFXTextField;
 
@@ -23,7 +25,9 @@ public class TableViewCacChau implements Initializable {
 	@FXML
 	JFXTextField txt_find;
 	@FXML
-	TextField txtidchau, txtidhogiadinh, txthoten, txtgioitinh, txtngaysinh, txtthanhtich;
+	TextField txtidchau, txtidhogiadinh, txthoten, txtgioitinh, txtthanhtich;
+	@FXML
+	DatePicker txtngaysinh;
 	@FXML
 	private TableView<CacChau> tablecacchau;
 	@FXML
@@ -56,7 +60,7 @@ public class TableViewCacChau implements Initializable {
 		Statement stat = connection.createStatement();
 		if (txtidchau.getText().trim().equals("") || txtidhogiadinh.getText().trim().equals("")
 				|| txthoten.getText().trim().equals("") || txtgioitinh.getText().trim().equals("")
-				|| txtngaysinh.getText().trim().equals("") || txtthanhtich.getText().trim().equals("")) {
+				|| txtngaysinh.getValue().toString().trim().equals("") || txtthanhtich.getText().trim().equals("")) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thông Báo");
 			alert.setHeaderText(null);
@@ -67,7 +71,7 @@ public class TableViewCacChau implements Initializable {
 				String sql = "Insert into CacChau (IDChau, IDHoGiaDinh, HoTen, GioiTinh, NgaySinh, ThanhTich) values ("
 						+ Integer.parseInt(txtidchau.getText()) + ", " + Integer.parseInt(txtidhogiadinh.getText())
 						+ ", N'" + txthoten.getText() + "', N'" + txtgioitinh.getText() + "', N'"
-						+ txtngaysinh.getText() + "', N'" + txtthanhtich.getText() + "')";
+						+ txtngaysinh.getValue().toString() + "', N'" + txtthanhtich.getText() + "')";
 				stat.executeUpdate(sql);
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -114,7 +118,7 @@ public class TableViewCacChau implements Initializable {
 		txtidhogiadinh.setText(IDHoGiaDinh.getCellData(index).toString());
 		txthoten.setText(HoTen.getCellData(index).toString());
 		txtgioitinh.setText(GioiTinh.getCellData(index).toString());
-		txtngaysinh.setText(NgaySinh.getCellData(index).toString());
+		txtngaysinh.setValue(LocalDate.parse(NgaySinh.getCellData(index).toString()));
 		txtthanhtich.setText(ThanhTich.getCellData(index).toString());
 	}
 
@@ -124,11 +128,11 @@ public class TableViewCacChau implements Initializable {
 		String value2 = txtidhogiadinh.getText();
 		String value3 = txthoten.getText();
 		String value4 = txtgioitinh.getText();
-		String value5 = txtngaysinh.getText();
+		String value5 = txtngaysinh.getValue().toString();
 		String value6 = txtthanhtich.getText();
 		String sql = "update CacChau set IDChau= " + Integer.parseInt(value1) + ", IDHoGiaDinh= " + value2
 				+ ", HoTen= N'" + value3 + "',GioiTinh= N'" + value4 + "', NgaySinh = '" + value5 + "', ThanhTich =N'"
-				+ value6 + "'" + "' where IDChau = " + Integer.parseInt(value1) + ";";
+				+ value6 + "'" + " where IDChau = " + Integer.parseInt(value1) + ";";
 		pst = connection.prepareStatement(sql);
 		pst.execute();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -203,7 +207,7 @@ public class TableViewCacChau implements Initializable {
 		txtidhogiadinh.setText("");
 		txthoten.setText("");
 		txtgioitinh.setText("");
-		txtngaysinh.setText("");
+		txtngaysinh.setValue(null);;
 		txtthanhtich.setText("");
 		UpdateTable();
 		search();

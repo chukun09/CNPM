@@ -2,6 +2,7 @@ package Controller;
 
 import java.net.*;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 import com.jfoenix.controls.JFXTextField;
@@ -21,7 +22,9 @@ public class TableViewPhatThuong implements Initializable {
 	@FXML
 	JFXTextField txt_find;
 	@FXML
-	TextField txtidphatthuong, txtthongtinphatthuong, txtngayphatthuong;
+	TextField txtidphatthuong, txtthongtinphatthuong;
+	@FXML
+	DatePicker txtngayphatthuong;
 	@FXML
 	private TableView<PhatThuong> tablephatthuong;
 	@FXML
@@ -46,7 +49,7 @@ public class TableViewPhatThuong implements Initializable {
 		connection = ConnectionDatabase.ConnectionData("cnpm1");
 		Statement stat = connection.createStatement();
 		if (txtidphatthuong.getText().trim().equals("") || txtthongtinphatthuong.getText().trim().equals("")
-				|| txtngayphatthuong.getText().trim().equals("")) {
+				|| txtngayphatthuong.getValue().toString().trim().equals("")) {
 			Alert alert = new Alert(AlertType.INFORMATION);
 			alert.setTitle("Thông Báo");
 			alert.setHeaderText(null);
@@ -56,7 +59,7 @@ public class TableViewPhatThuong implements Initializable {
 			try {
 				String sql = "Insert into PhatThuong (IDPhatThuong, ThongTinPhatThuong, NgayPhatThuong) values (N'"
 						+ txtidphatthuong.getText() + "', N'" + txtthongtinphatthuong.getText() + "', N'"
-						+ txtngayphatthuong.getText() + "')";
+						+ txtngayphatthuong.getValue().toString() + "')";
 				stat.executeUpdate(sql);
 			} catch (Exception e) {
 				Alert alert = new Alert(AlertType.INFORMATION);
@@ -100,16 +103,16 @@ public class TableViewPhatThuong implements Initializable {
 		}
 		txtidphatthuong.setText(IDPhatThuong.getCellData(index).toString());
 		txtthongtinphatthuong.setText(ThongTinPhatThuong.getCellData(index).toString());
-		txtngayphatthuong.setText(NgayPhatThuong.getCellData(index).toString());
+		txtngayphatthuong.setValue(LocalDate.parse(NgayPhatThuong.getCellData(index).toString()));
 	}
 
 	public void Edit() throws SQLException {
 		connection = ConnectionDatabase.ConnectionData("cnpm1");
 		String value1 = txtidphatthuong.getText();
 		String value5 = txtthongtinphatthuong.getText();
-		String value6 = txtngayphatthuong.getText();
+		String value6 = txtngayphatthuong.getValue().toString();
 		String sql = "update PhatThuong set IDPhatThuong= N'" + value1 + "', ThongTinPhatThuong = N'" + value5
-				+ "', NgayPhatThuong =N'" + value6 + "'" + "' where IDPhatThuong = N'" + value1 + "';";
+				+ "', NgayPhatThuong ='" + value6 + "'" + " where IDPhatThuong = N'" + value1 + "';";
 		pst = connection.prepareStatement(sql);
 		pst.execute();
 		Alert alert = new Alert(AlertType.INFORMATION);
@@ -173,7 +176,7 @@ public class TableViewPhatThuong implements Initializable {
 	public void Reset() throws SQLException {
 		txtidphatthuong.setText("");
 		txtthongtinphatthuong.setText("");
-		txtngayphatthuong.setText("");
+		txtngayphatthuong.setValue(null);
 		UpdateTable();
 	}
 

@@ -14,12 +14,12 @@
 
 <AnchorPane prefHeight="1112.0" prefWidth="1616.0" style="-fx-background-color: #ffffff;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.TableViewPhatThuongChiTiet">
   								  <children>
-                                          <TableView fx:id="tablechitietphatthuong" onMouseClicked="#getSelected" layoutX="-2.0" layoutY="273.0" prefHeight="812.0" prefWidth="1616.0" tableMenuButtonVisible="true">
+                                          <TableView fx:id="tablechitietphatthuong" layoutX="-2.0" layoutY="273.0" onMouseClicked="#getSelected" prefHeight="812.0" prefWidth="1616.0" tableMenuButtonVisible="true">
                                              <columns>
                                                 <TableColumn fx:id="IDPhatThuong" prefWidth="148.0" text="ID Phát Thưởng" />
                                                 <TableColumn fx:id="IDChau" minWidth="0.0" prefWidth="157.0" text="ID Cháu" />
                                                 <TableColumn fx:id="HoTen" prefWidth="461.0" text="Họ Tên" />
-                                                <TableColumn fx:id="ThongTinPhatThuong" prefWidth="244.0" text="Thông TIn Phát Thưởng" />
+                                                <TableColumn fx:id="ThongTinPhatThuong" prefWidth="244.0" text="Thông Tin Phát Thưởng" />
                                                 <TableColumn fx:id="PhanThuong" minWidth="0.0" prefWidth="290.0" text="Phần Thưởng" />
                                                 <TableColumn fx:id="NgayPhatThuong" prefWidth="315.0" text="Ngày Phát Thưởng" />
                                              </columns>
@@ -69,11 +69,11 @@
                                                 <Font name="Times New Roman" size="16.0" />
                                              </font>
                                           </Label>
-                                          <TextField fx:id="txtngayphatthuong" layoutX="1257.0" layoutY="96.0" prefHeight="31.0" prefWidth="271.0" />
                                           <Label layoutX="1154.0" layoutY="34.0" text="Phần Thưởng :">
                                              <font>
                                                 <Font name="Times New Roman" size="16.0" />
                                              </font>
                                           </Label>
+      <DatePicker fx:id="txtngayphatthuong" layoutX="1257.0" layoutY="96.0" prefHeight="31.0" prefWidth="271.0" />
                                        </children>
 </AnchorPane>

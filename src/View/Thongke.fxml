@@ -33,6 +33,6 @@
       <Label layoutX="21.0" layoutY="128.0" prefHeight="21.0" prefWidth="130.0" text="Bảng Thống Kê :" />
       <Label layoutX="555.0" layoutY="128.0" prefHeight="21.0" prefWidth="130.0" text="Trường 1 :" />
       <Label layoutX="1085.0" layoutY="128.0" prefHeight="21.0" prefWidth="130.0" text="Trường 2 :" />
-      <JFXButton layoutX="742.0" layoutY="201.0" prefHeight="50.0" prefWidth="149.0" onAction="#Submit" style="-fx-background-color: red;" text="Xác Nhận" />
+      <JFXButton layoutX="742.0" layoutY="201.0" onAction="#Submit" prefHeight="50.0" prefWidth="149.0" style="-fx-background-color: red;" text="Xác Nhận" />
                </children>
 </AnchorPane>
